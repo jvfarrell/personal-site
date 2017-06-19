@@ -3,4 +3,10 @@ Django==1.9.7
 gunicorn==19.6.0
 psycopg2==2.6.2
 whitenoise==2.0.6
-requests==2.9.1
+appdirs==1.4.3
+packaging==16.8
+pyparsing==2.2.0
+six==1.10.0
+requests==2.10.0
+pandas==0.18.1
+numpy==1.11.1

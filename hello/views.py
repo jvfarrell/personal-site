@@ -1,7 +1,7 @@
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse
-
+import hello.quotes
 from .models import Greeting
 
 # Create your views here.
@@ -20,3 +20,19 @@ def db(request):
 
     return render(request, 'db.html', {'greetings': greetings})
 
+
+def resume(request):
+    return render(request, 'resume.html')
+
+
+def home(request):
+    qotd = hello.quotes.get_random_quote()
+    return render(request, 'homepage.html', {'daily_quote': qotd})
+
+
+def nfl_analytics(request):
+    return render(request, 'nfl_analytics.html')
+
+
+def videos_page(request):
+    return render(request, 'youtube_links.html')
