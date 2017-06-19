@@ -86,14 +86,13 @@
 
     <center>
         <form action="" method="post" onsubmit="move()">
-            <label for="summoner_name">Summoner Name:</label>
             {{ form.summoner_name }}
             <input type="submit" value="Submit" onclick="move()"/>
             {% csrf_token %}
         </form>
     </center>
     <br>
-    <center><div id="loading_wheel" class="loader" style="display:none"></div></center>
+   <center><div id="loading_wheel" class="loader" style="display:none"></div></center>
     <script>
     function move() {
       document.getElementById("loading_wheel").style.display = "block";
@@ -103,25 +102,26 @@
     <div class="w3-row-padding w3-padding-48 w3-theme-l1">
 
         <div class="w3-row">
-          <div class="w3-col w3-container s4 l2" style="text-align:left;">
+          <div class="w3-col w3-container s6 l2" style="text-align:left;">
               <center>
             <div class="borderImage" style="background-image: url(/static/rank_border/{{highestAchievedSeasonTier}}.png);"></div>
                   </center>
                 <img src="{{icon_url}}" class="ProfileImage" alt="Summoner Icon">
                 <h2>{{ summoner_name }}</h2>
                 <p>{{ rank }}</p>
-                <!--<p>Role Pref: {{main_role}}, {{secondary_role}}</p>-->
+                <p>Role Pref: {{main_role}}, {{secondary_role}}</p>
                 <p>Win Ratio: {{total_win_ratio}}</p>
           </div>
             {% if champ_list %}
                     {% for champ in champ_list %}
-          <div class="w3-col w3-container s4 l2 w3-card w3-white" style="text-align:left; margin:0.25%; padding:1%;">
+          <div class="w3-col w3-container s6 l2 w3-card w3-white" style="text-align:left; margin:0.25%; padding:1%;">
               <div>
                     <img class='champ-icon' src="{{champ.champ_url}}" alt="{{ champ.name }} Icon" style="width:100px">
                 {% if champ.mastery > 4 %}
+
                     <img class="champ-level" border="0" style="width:25px" src="/static/champMastery/lvl{{ champ.mastery }}-Flag2.png"
                      alt="level {{ champ.mastery }}">
-                {% else %}
+
                 {% endif %}
               </div>
               <div class="w3-container">
@@ -138,45 +138,6 @@
                 There are no ranked games for this summoner.
             {% endif %}
         </div>
-
-        <!-- Testing new layout -->
-        <!--<div class="w3-row">
-            <div class="w3-col w3-container m2" style="width:16%; text-align:left;">
-                <div class="borderImage" style="background-image: url(/static/rank_border/{{highestAchievedSeasonTier}}.png);"></div>
-                <img src="{{icon_url}}" class="ProfileImage" alt="Summoner Icon">
-                <!--<img id="icon-border" src="{{ icon_url }}" alt="Summoner Icon">-->
-                <!--<h2>{{ summoner_name }}</h2>
-                <!--<p>{{ rank }}</p>
-                <!--<p>Role Pref: {{main_role}}, {{secondary_role}}</p>-->
-                <!--<p>Win Ratio: {{total_win_ratio}}</p>
-            </div>
-
-            {% if champ_list %}
-                    {% for champ in champ_list %}
-            <div class="w3-col w3-container m2" style="width:16%;">
-                <div class="w3-card-2 w3-white" style="text-align: left;">
-                        <div>
-                            <img class='champ-icon' src="{{champ.champ_url}}" alt="{{ champ.name }} Icon" style="width:100%">
-                        {% if champ.mastery > 4 %}
-
-                            <img class="champ-level" border="0" style="width:20%" src="/static/champMastery/lvl{{ champ.mastery }}-Flag2.png"
-                             alt="level {{ champ.mastery }}">
-                        </div>
-                        {% endif %}
-                      <div class="w3-container">
-                      <h3>{{ champ.name }}</h3>
-                          <p>Games Played: {{ champ.games_played }} </p>
-                          <p>Win Ratio: {{ champ.win_ratio }}</p>
-                          <p>KDA : {{ champ.kda }}</p>
-                          <p>Mastery Lvl: {{ champ.mastery }}</p>
-                      </div>
-                </div>
-            </div>
-                    {% endfor %}
-            {% else %}
-                There are no ranked games for this summoner.
-            {% endif %}
-        </div>-->
     </div>
 </header>
 {% endblock %}
