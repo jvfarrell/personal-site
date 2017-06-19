@@ -157,7 +157,7 @@ def summoner(request, sum_name):
                 kda = '{:.3f}'.format(top_champs.T[c].KDA)
                 win_ratio = '{percent:.1%}'.format(percent=top_champs.T[c].winRatio)
                 mastery = getSummonerChampLevel(c, sumID)
-                champ_url = 'http://ddragon.leagueoflegends.com/cdn/'+version+'/img/champion/'+name+'.png'
+                champ_url = 'http://ddragon.leagueoflegends.com/cdn/'+version+'/img/champion/'+name.replace(' ', '')+'.png'
                 list_item = {'name': name, 'games_played': games_played, 'kda': kda, 'win_ratio': win_ratio,
                              'mastery': mastery, 'champ_url': champ_url}
                 champ_list.append(list_item)
