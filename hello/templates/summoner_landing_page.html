@@ -15,6 +15,7 @@
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="/home/" class="w3-bar-item w3-button w3-padding-large">Home</a>
     <a href="/resume/" class="w3-bar-item w3-button w3-padding-large">Resume</a>
     <a href="/summoner/" class="w3-bar-item w3-button w3-padding-large">Summoner Lookup</a>
     <a href="/home/#quote" class="w3-bar-item w3-button w3-padding-large">Quote Generator</a>
@@ -58,11 +59,11 @@
             <label for="summoner_name">Summoner Name:</label>
             {{ form.summoner_name }}
             <input type="submit" value="Submit" onclick="move()"/>
-            <select class="w3-select" name="option" style="width:50px">
+            <!--<select class="w3-select" name="option" style="width:50px">
               <option value="1">NA</option>
               <option value="2">Needs</option>
               <option value="3">Implementation</option>
-            </select>
+            </select>-->
             {% csrf_token %}
         </form>
     </center>

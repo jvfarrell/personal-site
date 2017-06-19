@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from lol.forms import SummonerForm
 import requests, json
 import pandas as pd
+import time
 import lol.api_config as config
 
 # Set up code
@@ -146,7 +147,7 @@ def summoner(request, sum_name):
             total_win_ratio = '{percent:.2%}'.format(percent=total_win_ratio)
 
             # get top ranked champs
-            top_champs = df_personal_champ_ranked_stats.T.sort_values(by='totalSessionsPlayed', ascending=False)[0:5]
+            top_champs = df_personal_champ_ranked_stats.T.sort_values(by='totalSessionsPlayed', ascending=False)[0:8]
 
             champ_list = []
             # show relevant stats for champs
@@ -161,6 +162,7 @@ def summoner(request, sum_name):
                              'mastery': mastery, 'champ_url': champ_url}
                 champ_list.append(list_item)
 
+        time.sleep(10)
         # get highestAchievedSeasonTier
         highestAchievedSeasonTier = 'unranked'
         recent_games_url = 'https://na.api.riotgames.com/api/lol/NA/v1.3/game/by-summoner/' + sumID + '/recent?api_key=' + key
@@ -174,42 +176,42 @@ def summoner(request, sum_name):
                 highestAchievedSeasonTier = p['highestAchievedSeasonTier']
         highestAchievedSeasonTier = highestAchievedSeasonTier.lower()
 
-        # #get role pref
-        # matchlist_url = 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/'+account_id+'?season='+current_season+'&api_key='+key
-        # matchlist_data = requests.get(matchlist_url)
-        # matchlist = matchlist_data.json()['matches']
-        # num_matches = len(matchlist)
-        # top = 0
-        # jungle = 0
-        # mid = 0
-        # bot = 0
-        # support = 0
-        # for match in matchlist:
-        #     if match['lane'] == 'BOTTOM' or match['lane'] == 'BOT':
-        #         if match['role'] == 'DUO_SUPPORT':
-        #             support += 1
-        #         else:
-        #             bot += 1
-        #     elif match['lane'] == 'MID' or match['lane'] == 'MIDDLE':
-        #         mid += 1
-        #     elif match['lane'] == 'JUNGLE':
-        #         jungle += 1
-        #     elif match['lane'] == 'TOP':
-        #         top += 1
-        # role_count_list = {'Top': top, 'Jungle': jungle, 'Mid': mid, 'ADC': bot, 'Support': support}
-        # most = 0
-        # second = 0
+        # get role pref
+        matchlist_url = 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/' + account_id + '?season=' + current_season + '&api_key=' + key
+        matchlist_data = requests.get(matchlist_url)
+        matchlist = matchlist_data.json()['matches']
+        num_matches = len(matchlist)
+        top = 0
+        jungle = 0
+        mid = 0
+        bot = 0
+        support = 0
+        for match in matchlist:
+            if match['lane'] == 'BOTTOM' or match['lane'] == 'BOT':
+                if match['role'] == 'DUO_SUPPORT':
+                    support += 1
+                else:
+                    bot += 1
+            elif match['lane'] == 'MID' or match['lane'] == 'MIDDLE':
+                mid += 1
+            elif match['lane'] == 'JUNGLE':
+                jungle += 1
+            elif match['lane'] == 'TOP':
+                top += 1
+        role_count_list = {'Top': top, 'Jungle': jungle, 'Mid': mid, 'ADC': bot, 'Support': support}
+        most = 0
+        second = 0
         main_role = 'None'
         secondary_role = 'None'
-        # for role in role_count_list:
-        #     if role_count_list[role] > most:
-        #         secondary_role = main_role
-        #         second = most
-        #         main_role = role
-        #         most = role_count_list[role]
-        #     elif role_count_list[role] > second:
-        #         secondary_role = role
-        #         second = role_count_list[role]
+        for role in role_count_list:
+            if role_count_list[role] > most:
+                secondary_role = main_role
+                second = most
+                main_role = role
+                most = role_count_list[role]
+            elif role_count_list[role] > second:
+                secondary_role = role
+                second = role_count_list[role]
 
         return render(request, 'summoner_lookup.html', {'summoner_name': sum_name, 'rank': textRank, 'icon_url': icon_url,
                                                         'champ_list': champ_list, 'main_role': main_role,
