@@ -40,12 +40,21 @@
       <h1>About this site</h1>
       <h5 class="w3-padding-32">This site contains several of my personal projects to show off some things I've worked on.</h5>
 
-      <p class="w3-text-grey">Check out each link to see what that project does.  I'll continually update them. If you want to know more about me personally check out my social media below and check out my YouTube channel.</p>
+      <p class="w3-text-grey">Check out each link to see what that project does.  I'll continually update them.
+        If you want to know more about me personally check out my social media below and check out my YouTube channel.</p>
+      <p class="w3-text-grey">Quote Generator: I love to collect things.  Since I was little I collected geodes from the Outer Banks.
+        Over the past several years I've collected and written down my favorite quotes.  The quote generator will randomly select
+        one of my favorite quotes that I have collect each time you refresh the page.</p>
+      <p class="w3-text-grey">Summoner Lookup: I love video games.  I've grown up playing Halo, CoD, Gears of War, etc with my Dad and brothers.
+        League of Legends is one of my current favorites, so I decided to make a League of Legends Profiler. It currently
+        displays some basic stats about your top 8 ranked champions. It pulls all the data from the Riot API.
+        I'll be working on this one a lot to add more features and fix bugs continuously.
+      </p>
     </div>
   </div>
 </div>
 
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-64" id="quote">
-    <h1 class="w3-margin w3-xlarge">Quote of the day: <br>{{ daily_quote }}</h1>
+    <h1 class="w3-margin w3-xlarge">Quote Generator: <br>{{ daily_quote }}</h1>
 </div>
 {% endblock %}
