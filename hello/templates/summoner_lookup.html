@@ -92,7 +92,7 @@
         </form>
     </center>
     <br>
-   <center><div id="loading_wheel" class="loader" style="display:none"></div></center>
+   <center><div id="loading_wheel" class="loader" style="display:none; position:absolute; left:50%;"></div></center>
     <script>
     function move() {
       document.getElementById("loading_wheel").style.display = "block";
@@ -129,7 +129,9 @@
                   <p>Games Played: {{ champ.games_played }} </p>
                   <p>Win Ratio: {{ champ.win_ratio }}</p>
                   <p>KDA : {{ champ.kda }}</p>
+                  {% if champ.mastery > 4 %}
                   <p>Mastery Lvl: {{ champ.mastery }}</p>
+                  {% endif %}
               </div>
 
           </div>
