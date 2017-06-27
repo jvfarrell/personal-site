@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^$', hello.views.home),
     url(r'^resume/$', hello.views.resume),
     url(r'^home/$', hello.views.home),
+    url(r'^quote/$',hello.views.quote),
     url(r'^nfl/$', hello.views.nfl_analytics),
     url(r'^summoner/$', lol.views.summoner_landing),
     url(r'^summoner/(.*)/$', lol.views.summoner),

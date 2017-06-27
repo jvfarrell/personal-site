@@ -77,13 +77,6 @@
 </style>
 <header class="w3-container w3-light-gray w3-center" style="padding:60px 16px">
 
-    <script type="text/javascript">
-        function lookup() {
-            var name = document.getElementById('summoner_name').value;
-            window.location = "http://127.0.0.1:8000/summoner/" + name;
-        }
-    </script>
-
     <center>
         <form action="" method="post" onsubmit="move()">
             {{ form.summoner_name }}

@@ -27,7 +27,11 @@ def resume(request):
 
 def home(request):
     qotd = hello.quotes.get_random_quote()
-    return render(request, 'homepage.html', {'daily_quote': qotd})
+    return render(request, 'homepage.html', {'daily_quote': qotd, 'quotes': hello.quotes.quotes})
+
+
+def quote(request):
+    return render(request, 'quote.html', {'quote': hello.quotes.get_random_quote()})
 
 
 def nfl_analytics(request):
