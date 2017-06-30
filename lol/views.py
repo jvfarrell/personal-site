@@ -49,9 +49,9 @@ if riot_api_working:
 
 def error(request):
     if riot_api_working:
-        return render(request, 'error.html', {'from': 'Summoner Lookup'})
+        return render(request, 'error.html', {'from': 'The Summoner Lookup hit a bug...sorry!'})
     else:
-        return render(request, 'error.html', {'from': 'Riot API'})
+        return render(request, 'error.html', {'from': 'The Riot API is down.'})
 
 
 def getSummonerChampLevel(tempChampID, summID):
@@ -77,7 +77,7 @@ def summoner_landing(request):
     else:
         form = SummonerForm()
         if riot_api_working is False:
-            return render(request, 'error.html', {'from': 'Riot API'})
+            return render(request, 'error.html', {'from': 'The Riot API is down.'})
         return render(request, 'summoner_landing_page.html', {'form': form})
 
 
@@ -91,7 +91,7 @@ def summoner(request, sum_name):
             return HttpResponseRedirect('/summoner/'+name)
     else:
         if riot_api_working is False:
-            return render(request, 'error.html', {'from': 'Riot API'})
+            return render(request, 'error.html', {'from': 'The Riot API is down.'})
 
         name = str(sum_name)
         form = SummonerForm(
@@ -102,6 +102,10 @@ def summoner(request, sum_name):
         #name_requested_formatted = name.replace('+', '%20')
         url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + plain_name + '?api_key=' + key
         response = requests.get(url)
+        if response.status_code == 404:
+            return render(request, 'error.html', {'from': response.json()['status']['message']})
+        elif response.status_code != 200:
+            return render(request, 'error.html', {'from': response.json()['status']['message']})
         data = response.json()
 
         # get Summoner ID and name
