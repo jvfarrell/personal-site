@@ -1,3 +1,25 @@
+Ideas:
+lets add more graphs to page of summoner profile
+
+aka
+graph that shows bar on each champion showing percentage of games played as that champ
+ex:
+```sh
+Thresh |---------------           |
+Syndra |---                       |
+Karma  |-------                   |
+Trynd  |-----------               |
+```
+could also be color coded with win percentage aka
+```sh
+Thresh |-----++++++++++           |
+Syndra |-++                       |
+Karma  |---++++                   |
+Trynd  |---++++++++               |
+```
+also add color to KDA aka mint green if above 3.0 and blue if above 4.0
+
+
 # python-getting-started
 
 A barebones Python app, which can easily be deployed to Heroku.
