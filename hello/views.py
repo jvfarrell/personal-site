@@ -40,3 +40,7 @@ def nfl_analytics(request):
 
 def videos_page(request):
     return render(request, 'youtube_links.html')
+
+
+def riot(request):
+    return render(request, 'riot.html')
