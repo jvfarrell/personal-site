@@ -51,7 +51,7 @@ def error(request):
     if riot_api_working:
         return render(request, 'error.html', {'from': 'The Summoner Lookup hit a bug...sorry!'})
     else:
-        return render(request, 'error.html', {'from': 'The Riot API is down.'})
+        return render(request, 'error.html', {'from': 'We are having trouble accessing the Riot Games API.'})
 
 
 def getSummonerChampLevel(tempChampID, summID):
@@ -77,7 +77,7 @@ def summoner_landing(request):
     else:
         form = SummonerForm()
         if riot_api_working is False:
-            return render(request, 'error.html', {'from': 'The Riot API is down.'})
+            return render(request, 'error.html', {'from': 'We are having trouble accessing the Riot Games API.'})
         return render(request, 'summoner_landing_page.html', {'form': form})
 
 
@@ -91,7 +91,7 @@ def summoner(request, sum_name):
             return HttpResponseRedirect('/summoner/'+name)
     else:
         if riot_api_working is False:
-            return render(request, 'error.html', {'from': 'The Riot API is down.'})
+            return render(request, 'error.html', {'from': 'We are having trouble accessing the Riot Games API.'})
 
         name = str(sum_name)
         form = SummonerForm(
