@@ -13,7 +13,7 @@ current_season = '8'
 
 
 def check_api_status():
-    lol_status_url = 'https://na.api.riotgames.com/lol/status/v1/shard?api_key='+key
+    lol_status_url = 'https://na1.api.riotgames.com/lol/status/v3/shard-data?api_key='+key
     lol_status = requests.get(lol_status_url)
     if lol_status.status_code == 200:
         return True
@@ -169,10 +169,11 @@ def summoner(request, sum_name):
         time.sleep(10)
         # get highestAchievedSeasonTier
         highestAchievedSeasonTier = 'unranked'
-        recent_games_url = 'https://na.api.riotgames.com/api/lol/NA/v1.3/game/by-summoner/' + sumID + '/recent?api_key=' + key
+        recent_games_url = 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/' + account_id + '/recent?api_key=' + key
+        #recent_games_url = 'https://na.api.riotgames.com/api/lol/NA/v1.3/game/by-summoner/' + sumID + '/recent?api_key=' + key #depreciated
         recent_games = requests.get(recent_games_url).json()
-        r_champ_id = recent_games['games'][0]['championId']
-        r_match_id = recent_games['games'][0]['gameId']
+        r_champ_id = recent_games['matches'][0]['champion']
+        r_match_id = recent_games['matches'][0]['gameId']
         r_game_url = 'https://na1.api.riotgames.com/lol/match/v3/matches/' + str(r_match_id) + '?api_key=' + key
         r_game = requests.get(r_game_url).json()
         for p in r_game['participants']:
