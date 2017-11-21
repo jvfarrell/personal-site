@@ -13,7 +13,7 @@ current_season = '8'
 
 
 def check_api_status():
-    lol_status_url = 'https://na.api.riotgames.com/lol/status/v1/shard?api_key='+key
+    lol_status_url = 'https://na1.api.riotgames.com/lol/status/v3/shard-data?api_key='+key
     lol_status = requests.get(lol_status_url)
     if lol_status.status_code == 200:
         return True
@@ -23,7 +23,7 @@ def check_api_status():
 riot_api_working = check_api_status()
 if riot_api_working:
     #champion info/names
-    url_champ_info = 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=' + key
+    url_champ_info = 'https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=' + key
     championInfo = requests.get(url_champ_info)
 
     champ_dict = {}
@@ -31,12 +31,12 @@ if riot_api_working:
         champ_dict[championInfo.json()['data'][champion]['id']] = championInfo.json()['data'][champion]['name']
 
     # get current lol patch version
-    version_url = 'https://global.api.riotgames.com/api/lol/static-data/NA/v1.2/versions?api_key=' + key
+    version_url = 'https://na1.api.riotgames.com/lol/static-data/v3/versions?api_key=' + key
     versions = requests.get(version_url)
     if versions.status_code == 200:
         version = versions.json()[0]
     else:
-        version = 7.11  # manual
+        version = '7.23.1'  # manual
 
     def getChampSimpleName(champID):
         return champ_dict[champID].lower().replace(' ', '').replace('\'', '').replace('.', '')
@@ -55,10 +55,11 @@ def error(request):
 
 
 def getSummonerChampLevel(tempChampID, summID):
-    url = 'https://na.api.pvp.net/championmastery/location/NA1/player/'+str(summID)+'/champion/'+str(tempChampID)+'?api_key='+key
+    url = 'https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/'+str(summID)+'/by-champion/'+str(tempChampID)+'?api_key='+key
     getChampExp = requests.get(url)
     if getChampExp.status_code == 200:
         #has experience
+        #could also get championPoints and tokensEarned
         return getChampExp.json()['championLevel']
     else:
         return 0
@@ -112,10 +113,12 @@ def summoner(request, sum_name):
         sumID = data['id']
         account_id = str(data['accountId'])
         icon_id = data['profileIconId']
+        summoner_level = data['summonerLevel']
         sumID = str(sumID)
         icon_url = 'http://ddragon.leagueoflegends.com/cdn/'+version+'/img/profileicon/'+str(icon_id)+'.png'
 
         # Get summoner Rank
+        # need to redo this
         url = 'https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/' + sumID + '?api_key=' + key
         rank = requests.get(url)
         textRank = ''
