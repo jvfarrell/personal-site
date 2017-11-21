@@ -51,7 +51,7 @@ def error(request):
     if riot_api_working:
         return render(request, 'error.html', {'from': 'The Summoner Lookup hit a bug...sorry!'})
     else:
-        return render(request, 'error.html', {'from': 'The Riot API is down.'})
+        return render(request, 'error.html', {'from': 'We are having trouble accessing the Riot Games API.'})
 
 
 def getSummonerChampLevel(tempChampID, summID):
@@ -78,7 +78,7 @@ def summoner_landing(request):
     else:
         form = SummonerForm()
         if riot_api_working is False:
-            return render(request, 'error.html', {'from': 'The Riot API is down.'})
+            return render(request, 'error.html', {'from': 'We are having trouble accessing the Riot Games API.'})
         return render(request, 'summoner_landing_page.html', {'form': form})
 
 
@@ -92,7 +92,7 @@ def summoner(request, sum_name):
             return HttpResponseRedirect('/summoner/'+name)
     else:
         if riot_api_working is False:
-            return render(request, 'error.html', {'from': 'The Riot API is down.'})
+            return render(request, 'error.html', {'from': 'We are having trouble accessing the Riot Games API.'})
 
         name = str(sum_name)
         form = SummonerForm(
@@ -172,10 +172,11 @@ def summoner(request, sum_name):
         time.sleep(10)
         # get highestAchievedSeasonTier
         highestAchievedSeasonTier = 'unranked'
-        recent_games_url = 'https://na.api.riotgames.com/api/lol/NA/v1.3/game/by-summoner/' + sumID + '/recent?api_key=' + key
+        recent_games_url = 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/' + account_id + '/recent?api_key=' + key
+        #recent_games_url = 'https://na.api.riotgames.com/api/lol/NA/v1.3/game/by-summoner/' + sumID + '/recent?api_key=' + key #depreciated
         recent_games = requests.get(recent_games_url).json()
-        r_champ_id = recent_games['games'][0]['championId']
-        r_match_id = recent_games['games'][0]['gameId']
+        r_champ_id = recent_games['matches'][0]['champion']
+        r_match_id = recent_games['matches'][0]['gameId']
         r_game_url = 'https://na1.api.riotgames.com/lol/match/v3/matches/' + str(r_match_id) + '?api_key=' + key
         r_game = requests.get(r_game_url).json()
         for p in r_game['participants']:

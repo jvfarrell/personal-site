@@ -1,4 +1,14 @@
 Ideas:
+
+Just a simple champion mastery page.  Compare two summoners champions?
+
+Compare summoners directly with graphics
+Compare between me and my brothers...
+LIVE GAME COMPARISON - Champions and their win percentages and stuff like that....
+
+Live game analysis...
+
+Summoner Profile now might be too hard to have since game data is no longer available without database to save it all on my site.
 lets add more graphs to page of summoner profile
 
 aka
