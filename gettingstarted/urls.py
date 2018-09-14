@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^error/$', lol.views.error),
     url(r'^videos/$', hello.views.videos_page),
     url(r'^riot.txt$', hello.views.riot)
+	url(r'^pat/$', hello.views.pat)
+	url(r'^groomsmen/$', hello.views.groomsmen)
 
 ]

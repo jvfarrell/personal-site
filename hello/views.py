@@ -44,3 +44,9 @@ def videos_page(request):
 
 def riot(request):
     return render(request, 'riot.html')
+
+def pat(request):
+	return render(request, 'pat.html')
+
+def groomsmen(request):
+	return render(request, 'groomsmen.html')
